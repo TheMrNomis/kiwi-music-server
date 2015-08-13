@@ -11,7 +11,9 @@ QT       += core \
 QT       -= gui
 
 TARGET = kiwi-music-server
-CONFIG   += console
+CONFIG   += console \
+            c++11
+
 CONFIG   -= app_bundle
 
 TEMPLATE = app
