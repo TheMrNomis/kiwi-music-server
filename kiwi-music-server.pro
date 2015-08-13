@@ -4,7 +4,9 @@
 #
 #-------------------------------------------------
 
-QT       += core
+QT       += core \
+            multimedia \
+            sql
 
 QT       -= gui
 
@@ -15,4 +17,14 @@ CONFIG   -= app_bundle
 TEMPLATE = app
 
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    Commander.cpp \
+    BDD.cpp \
+    Parameters.cpp
+
+HEADERS += \
+    Commander.h \
+    BDD.h \
+    Parameters.h
+
+DISTFILES +=
