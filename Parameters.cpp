@@ -1,13 +1,17 @@
 #include "Parameters.h"
 
-Parameters::Parameters(int argc, char *argv[]):
+Parameters::Parameters(QObject * parent):
+  QObject(parent),
   m_dbLocation("./demo/bdd.db"),
   m_musicLibraryLocations()
 {
-  Q_UNUSED(argc)
-  Q_UNUSED(argv)
-
   qDebug() << "Loading parameters";
+  QStringList args = qApp->arguments();
+
+  for(auto it = args.cbegin(); it != args.cend(); ++it)
+  {
+    qDebug() << *it;
+  }
 }
 
 QString Parameters::getDbLocation() const

@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
-    Parameters* param = new Parameters(argc, argv);
+    Parameters* param = new Parameters();
     BDD* bdd = new BDD(param->getDbLocation());
 
     delete bdd;

@@ -2,13 +2,18 @@
 #define PARAMETERS_H
 
 #include <QDebug>
+
+#include <QObject>
+#include <QCoreApplication>
+
 #include <QList>
 #include <QString>
 
-class Parameters
+class Parameters : public QObject
 {
+  Q_OBJECT
 public:
-  explicit Parameters(int argc, char *argv[]);
+  explicit Parameters(QObject *parent = 0);
 
   QString getDbLocation() const;
   QList<QString> getMusicLibraryLocations() const;
