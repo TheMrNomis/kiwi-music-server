@@ -1,17 +1,21 @@
 #ifndef PARAMETERS_H
 #define PARAMETERS_H
 
-#include <QObject>
+#include <QDebug>
+#include <QList>
+#include <QString>
 
-class Parameters : public QObject
+class Parameters
 {
-  Q_OBJECT
 public:
-  explicit Parameters(QObject *parent = 0);
+  explicit Parameters(int argc, char *argv[]);
 
-signals:
+  QString getDbLocation() const;
+  QList<QString> getMusicLibraryLocations() const;
 
-public slots:
+private:
+  QString m_dbLocation;
+  QList<QString> m_musicLibraryLocations;
 };
 
 #endif // PARAMETERS_H
