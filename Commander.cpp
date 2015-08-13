@@ -1,7 +1,14 @@
 #include "Commander.h"
 
-Commander::Commander(QObject *parent) : QObject(parent)
+Commander::Commander(BDD *const bdd, Parameters *const params, QObject *parent) :
+  QObject(parent),
+  m_bdd(bdd),
+  m_params(params)
 {
 
 }
 
+void Commander::localScan()
+{
+
+}
