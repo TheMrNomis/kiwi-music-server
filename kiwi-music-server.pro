@@ -30,3 +30,7 @@ HEADERS += \
     Parameters.h
 
 DISTFILES +=
+
+#version number
+VERSION = $$system(echo \"`git --git-dir=${PWD}/.git describe`\")
+DEFINES += "GIT_BUILDVERSION=\\\"$${VERSION}\\\""
