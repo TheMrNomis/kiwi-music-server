@@ -2,16 +2,39 @@
 
 Parameters::Parameters(QObject * parent):
   QObject(parent),
+  m_runApplication(true),
   m_dbLocation("./demo/bdd.db"),
   m_musicLibraryLocations()
 {
-  qDebug() << "Loading parameters";
   QStringList args = qApp->arguments();
 
-  for(auto it = args.cbegin(); it != args.cend(); ++it)
+  for(auto it = args.cbegin(); m_runApplication && it != args.cend(); ++it)
   {
-    qDebug() << *it;
+    if(*it == QString("--version"))
+    {
+      std::cout << "Kiwi-Music-server " << GIT_BUILDVERSION << " (build on " << __DATE__ << ", " << __TIME__ << ")" << std::endl;
+      std::cout << "Copyright (C) 2015 - Amaury Louarn" << std::endl;
+      std::cout << "" << std::endl;
+      std::cout << "This program is free software: you can redistribute it and/or modify" << std::endl;
+      std::cout << "it under the terms of the GNU General Public License as published by" << std::endl;
+      std::cout << "the Free Software Foundation, either version 3 of the License, or" << std::endl;
+      std::cout << "(at your option) any later version." << std::endl;
+      std::cout << "" << std::endl;
+      std::cout << "This program is distributed in the hope that it will be useful," << std::endl;
+      std::cout << "but WITHOUT ANY WARRANTY; without even the implied warranty of" << std::endl;
+      std::cout << "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the" << std::endl;
+      std::cout << "GNU General Public License for more details." << std::endl;
+      std::cout << "" << std::endl;
+      std::cout << "You should have received a copy of the GNU General Public License" << std::endl;
+      std::cout << "along with this program.  If not, see <http://www.gnu.org/licenses/>." << std::endl;
+      m_runApplication = false;
+    }
   }
+}
+
+bool Parameters::runApplication() const
+{
+  return m_runApplication;
 }
 
 QString Parameters::getDbLocation() const

@@ -3,8 +3,9 @@
 
 #include <QDebug>
 
-#include <QObject>
 #include <QCoreApplication>
+#include <QObject>
+#include <iostream>
 
 #include <QList>
 #include <QString>
@@ -15,10 +16,14 @@ class Parameters : public QObject
 public:
   explicit Parameters(QObject *parent = 0);
 
+  bool runApplication() const;
+
   QString getDbLocation() const;
   QList<QString> getMusicLibraryLocations() const;
 
 private:
+  bool m_runApplication;
+
   QString m_dbLocation;
   QList<QString> m_musicLibraryLocations;
 };
