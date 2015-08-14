@@ -29,12 +29,27 @@ Parameters::Parameters(QObject * parent):
       std::cout << "You should have received a copy of the GNU General Public License" << std::endl;
       std::cout << "along with this program.  If not, see <http://www.gnu.org/licenses/>." << std::endl;
       m_runApplication = false;
+      return;
     }
     else if(it->startsWith("--config=",Qt::CaseInsensitive))
     {
       m_configFileLocation.setFileName(it->mid(9)); //TODO
       qDebug() << "config file : " << m_configFileLocation.fileName();
     }
+  }
+
+  if(m_configFileLocation.exists())
+  {
+    //setting paths relative to the config file
+    QDir::setCurrent(m_configFileLocation.fileName().left(m_configFileLocation.fileName().lastIndexOf('/')));
+    qDebug() << "working directory : " << QDir::currentPath();
+    _parseConfigFile();
+  }
+  else
+  {
+    qDebug() << "no config file given (or file doesn't exist). Aborting";
+    m_runApplication = false;
+    return;
   }
 }
 
@@ -57,4 +72,22 @@ QList<QString> Parameters::getMusicLibraryLocations() const
     return QList<QString>(); //TODO
   else
     return m_musicLibraryLocations;
+}
+
+void Parameters::_parseConfigFile()
+{
+  if(m_configFileLocation.open(QIODevice::ReadOnly))
+  {
+    QTextStream configFile(&m_configFileLocation);
+    QString line;
+    while(configFile.readLineInto(&line))
+    {
+      //TODO: parsing all the parameters
+      if(!line.startsWith('#'))//comments
+      {
+        if(line.startsWith("db="))
+          m_dbLocation = line.mid(3);
+      }
+    }
+  }
 }

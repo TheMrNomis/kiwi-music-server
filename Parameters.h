@@ -4,9 +4,11 @@
 #include <QDebug>
 
 #include <QCoreApplication>
+#include <iostream>
+
 #include <QObject>
 #include <QFile>
-#include <iostream>
+#include <QDir>
 
 #include <QList>
 #include <QString>
@@ -23,6 +25,8 @@ public:
   QList<QString> getMusicLibraryLocations() const;
 
 private:
+  void _parseConfigFile();
+
   bool m_runApplication;
 
   QFile m_configFileLocation;
