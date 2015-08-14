@@ -2,7 +2,13 @@
 #define COMMANDER_H
 
 #include <QDebug>
+
 #include <QObject>
+
+#include <QTcpServer>
+#include <QTcpSocket>
+
+#include <QList>
 
 #include "BDD.h"
 #include "Parameters.h"
@@ -22,8 +28,14 @@ signals:
 
 public slots:
 
+private slots:
+  void _connectClients();
+
 private:
-  void localScan();
+  void _localScan();
+
+  QTcpServer m_tcpServer;
+  QList<QTcpSocket *> m_clients;
 
   BDD *const m_bdd;
   Parameters *const m_params;

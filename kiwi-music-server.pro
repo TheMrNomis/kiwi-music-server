@@ -6,7 +6,8 @@
 
 QT       += core \
             multimedia \
-            sql
+            sql \
+            network
 
 QT       -= gui
 
