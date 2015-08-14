@@ -5,6 +5,7 @@
 
 #include <QCoreApplication>
 #include <QObject>
+#include <QFile>
 #include <iostream>
 
 #include <QList>
@@ -24,6 +25,7 @@ public:
 private:
   bool m_runApplication;
 
+  QFile m_configFileLocation;
   QString m_dbLocation;
   QList<QString> m_musicLibraryLocations;
 };

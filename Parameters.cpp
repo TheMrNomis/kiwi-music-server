@@ -3,6 +3,7 @@
 Parameters::Parameters(QObject * parent):
   QObject(parent),
   m_runApplication(true),
+  m_configFileLocation(this),
   m_dbLocation("./demo/bdd.db"),
   m_musicLibraryLocations()
 {
@@ -28,6 +29,11 @@ Parameters::Parameters(QObject * parent):
       std::cout << "You should have received a copy of the GNU General Public License" << std::endl;
       std::cout << "along with this program.  If not, see <http://www.gnu.org/licenses/>." << std::endl;
       m_runApplication = false;
+    }
+    else if(it->startsWith("--config=",Qt::CaseInsensitive))
+    {
+      m_configFileLocation.setFileName(it->mid(9)); //TODO
+      qDebug() << "config file : " << m_configFileLocation.fileName();
     }
   }
 }
