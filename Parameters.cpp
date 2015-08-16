@@ -2,9 +2,11 @@
 
 Parameters::Parameters(QObject * parent):
   QObject(parent),
-  m_configFileLocation(this),
-  m_dbLocation("./demo/bdd.db"),
-  m_musicLibraryLocations()
+  m_configFile(this),
+  m_dbLocation(),
+  m_musicLibraryLocations(),
+  m_RSAKeyLocation(),
+  m_RSAPassphrase()
 {
   QStringList args = qApp->arguments();
 
@@ -16,10 +18,10 @@ Parameters::Parameters(QObject * parent):
       _singleDashArgument(it->mid(1));
   }
 
-  if(m_configFileLocation.exists())
+  if(m_configFile.exists())
   {
     //setting paths relative to the config file
-    QDir::setCurrent(m_configFileLocation.fileName().left(m_configFileLocation.fileName().lastIndexOf('/')));
+    QDir::setCurrent(m_configFile.fileName().left(m_configFile.fileName().lastIndexOf('/')));
     qDebug() << "working directory : " << QDir::currentPath();
     _parseConfigFile();
   }
@@ -30,30 +32,15 @@ Parameters::Parameters(QObject * parent):
   }
 }
 
-QString Parameters::getDbLocation() const
-{
-  if(m_dbLocation == QString())
-    return QString(); //TODO : default location
-  else
-    return m_dbLocation;
-}
-
-QList<QString> Parameters::getMusicLibraryLocations() const
-{
-  if(m_musicLibraryLocations.size() == 0)
-    return QList<QString>(); //TODO
-  else
-    return m_musicLibraryLocations;
-}
-
 void Parameters::_parseConfigFile()
 {
-  if(m_configFileLocation.open(QIODevice::ReadOnly))
+  if(m_configFile.open(QIODevice::ReadOnly))
   {
-    QTextStream configFile(&m_configFileLocation);
+    QTextStream configFile(&m_configFile);
     QString line;
     while(configFile.readLineInto(&line))
     {
+      line = line.trimmed();
       //TODO: parsing all the parameters
       if(!line.startsWith('#'))//comments
       {
@@ -102,8 +89,8 @@ void Parameters::_doubleDashArgument(QString const& argument)
   }
   else if(var == "config")
   {
-    m_configFileLocation.setFileName(val); //TODO
-    qDebug() << "config file : " << m_configFileLocation.fileName();
+    m_configFile.setFileName(val); //TODO
+    qDebug() << "config file : " << m_configFile.fileName();
   }
 }
 

@@ -19,8 +19,11 @@ class Parameters : public QObject
 public:
   explicit Parameters(QObject *parent = 0);
 
-  QString getDbLocation() const;
-  QList<QString> getMusicLibraryLocations() const;
+  QString getDbLocation() const{return m_dbLocation;}
+  QList<QString> getMusicLibraryLocations() const{return m_musicLibraryLocations;}
+
+  QString getRSAKeyLocation() const{return m_RSAKeyLocation;}
+  QString getRSAPassphrase() const{return m_RSAPassphrase;}
 
 private:
   void _parseConfigFile();
@@ -30,9 +33,13 @@ private:
 
   void _printVersionAndQuit() const;
 
-  QFile m_configFileLocation;
+  QFile m_configFile;
+
   QString m_dbLocation;
   QList<QString> m_musicLibraryLocations;
+
+  QString m_RSAKeyLocation;
+  QString m_RSAPassphrase;
 };
 
 #endif // PARAMETERS_H
