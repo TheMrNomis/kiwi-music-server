@@ -27,6 +27,7 @@ signals:
   void previous();
 
 public slots:
+  void start();
 
 private slots:
   void _connectClients();

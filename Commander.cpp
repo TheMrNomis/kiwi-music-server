@@ -6,6 +6,11 @@ Commander::Commander(BDD *const bdd, Parameters *const params, QObject *parent) 
   m_bdd(bdd),
   m_params(params)
 {
+
+}
+
+void Commander::start()
+{
   if(!m_tcpServer->listen(QHostAddress::Any, 6600))
   {
     qCritical() << "The server cannot be started : " << m_tcpServer->errorString();

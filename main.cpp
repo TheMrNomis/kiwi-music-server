@@ -15,5 +15,7 @@ int main(int argc, char *argv[])
     BDD bdd(param.getDbLocation(),&a);
     Commander commander(&bdd, &param,&a);
 
+    commander.start();
+
     return a.exec();
 }
