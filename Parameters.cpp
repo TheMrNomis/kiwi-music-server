@@ -44,8 +44,26 @@ void Parameters::_parseConfigFile()
       //TODO: parsing all the parameters
       if(!line.startsWith('#'))//comments
       {
-        if(line.startsWith("db="))
-          m_dbLocation = line.mid(3);
+        QString var;
+        QString val;
+        int equalPos = line.indexOf('=');
+        if(equalPos < 0)
+        {
+          var = line;
+        }
+        else
+        {
+          var = line.mid(0,equalPos).trimmed();
+          val = line.mid(equalPos+1).trimmed();
+        }
+        var = var.toLower();
+
+        if(var == "db")
+          m_dbLocation = val;
+        else if(var == "rsa key")
+          m_RSAKeyLocation = val;
+        else if(var == "rsa passphrase")
+          m_RSAPassphrase = val;
       }
     }
   }

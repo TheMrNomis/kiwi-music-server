@@ -1,1 +1,3 @@
 db=./bdd.db
+RSA key = ./key.pem
+rsa passphrase="blablabla"
