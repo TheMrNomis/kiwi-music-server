@@ -19,15 +19,11 @@ class Parameters : public QObject
 public:
   explicit Parameters(QObject *parent = 0);
 
-  bool runApplication() const;
-
   QString getDbLocation() const;
   QList<QString> getMusicLibraryLocations() const;
 
 private:
   void _parseConfigFile();
-
-  bool m_runApplication;
 
   QFile m_configFileLocation;
   QString m_dbLocation;

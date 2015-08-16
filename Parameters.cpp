@@ -2,14 +2,13 @@
 
 Parameters::Parameters(QObject * parent):
   QObject(parent),
-  m_runApplication(true),
   m_configFileLocation(this),
   m_dbLocation("./demo/bdd.db"),
   m_musicLibraryLocations()
 {
   QStringList args = qApp->arguments();
 
-  for(auto it = args.cbegin(); m_runApplication && it != args.cend(); ++it)
+  for(auto it = args.cbegin(); it != args.cend(); ++it)
   {
     if(*it == QString("--version"))
     {
@@ -28,8 +27,7 @@ Parameters::Parameters(QObject * parent):
       std::cout << "" << std::endl;
       std::cout << "You should have received a copy of the GNU General Public License" << std::endl;
       std::cout << "along with this program.  If not, see <http://www.gnu.org/licenses/>." << std::endl;
-      m_runApplication = false;
-      return;
+      exit(0);
     }
     else if(it->startsWith("--config=",Qt::CaseInsensitive))
     {
@@ -48,14 +46,8 @@ Parameters::Parameters(QObject * parent):
   else
   {
     qDebug() << "no config file given (or file doesn't exist). Aborting";
-    m_runApplication = false;
-    return;
+    exit(0);
   }
-}
-
-bool Parameters::runApplication() const
-{
-  return m_runApplication;
 }
 
 QString Parameters::getDbLocation() const
