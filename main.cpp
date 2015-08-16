@@ -11,13 +11,9 @@ int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
-    Parameters* param = new Parameters();
-    BDD* bdd = new BDD(param->getDbLocation());
-    Commander* commander = new Commander(bdd, param);
-
-    delete commander;
-    delete bdd;
-    delete param;
+    Parameters* param = new Parameters(&a);
+    BDD* bdd = new BDD(param->getDbLocation(),&a);
+    Commander* commander = new Commander(bdd, param,&a);
 
     return a.exec();
 }
