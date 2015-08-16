@@ -25,6 +25,11 @@ public:
 private:
   void _parseConfigFile();
 
+  void _singleDashArgument(QString const& argument);
+  void _doubleDashArgument(QString const& argument);
+
+  void _printVersionAndQuit() const;
+
   QFile m_configFileLocation;
   QString m_dbLocation;
   QList<QString> m_musicLibraryLocations;
