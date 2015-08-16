@@ -2,29 +2,29 @@
 
 Commander::Commander(BDD *const bdd, Parameters *const params, QObject *parent) :
   QObject(parent),
-  m_tcpServer(this),
+  m_tcpServer(new QTcpServer(this)),
   m_bdd(bdd),
   m_params(params)
 {
-  int port = 66600;
-  if(!m_tcpServer.listen(QHostAddress::Any, port))
+  if(!m_tcpServer->listen(QHostAddress::Any, 6600))
   {
-    qCritical() << "The server cannot be started : " << m_tcpServer.errorString();
+    qCritical() << "The server cannot be started : " << m_tcpServer->errorString();
+    exit(0);
   }
   else
   {
-    qDebug() << "Server started on port " << port;
-    QObject::connect(&m_tcpServer, SIGNAL(newConnection()), this, SLOT(_connectClients()));
+    qDebug() << "Server started on port " << m_tcpServer->serverPort();
+    QObject::connect(m_tcpServer, SIGNAL(newConnection()), this, SLOT(_connectClients()));
   }
 }
 
 void Commander::_connectClients()
 {
-  while(m_tcpServer.hasPendingConnections())
+  while(m_tcpServer->hasPendingConnections())
   {
-    QTcpSocket * client = m_tcpServer.nextPendingConnection();
+    QTcpSocket * client = m_tcpServer->nextPendingConnection();
 
-    std::cout << "new connexion from " << client->peerAddress().toString().toStdString();
+    qDebug() << "new connexion from " << client->peerAddress().toString();
 
     m_clients.push_back(client);
   }

@@ -34,7 +34,7 @@ private slots:
 private:
   void _localScan();
 
-  QTcpServer m_tcpServer;
+  QTcpServer * m_tcpServer;
   QList<QTcpSocket *> m_clients;
 
   BDD *const m_bdd;
