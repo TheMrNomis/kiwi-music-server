@@ -63,7 +63,7 @@ void Parameters::_parseConfigFile()
         else if(var == "rsa key")
           m_RSAKeyLocation = val;
         else if(var == "rsa passphrase")
-          m_RSAPassphrase = val;
+          m_RSAPassphrase = QCA::SecureArray(val.toUtf8());
       }
     }
   }

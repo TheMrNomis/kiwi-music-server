@@ -5,6 +5,7 @@
 
 #include <QCoreApplication>
 #include <iostream>
+#include <QtCrypto>
 
 #include <QObject>
 #include <QFile>
@@ -23,7 +24,7 @@ public:
   QList<QString> getMusicLibraryLocations() const{return m_musicLibraryLocations;}
 
   QString getRSAKeyLocation() const{return m_RSAKeyLocation;}
-  QString getRSAPassphrase() const{return m_RSAPassphrase;}
+  QCA::SecureArray getRSAPassphrase() const{return m_RSAPassphrase;}
 
 private:
   void _parseConfigFile();
@@ -39,7 +40,7 @@ private:
   QList<QString> m_musicLibraryLocations;
 
   QString m_RSAKeyLocation;
-  QString m_RSAPassphrase;
+  QCA::SecureArray m_RSAPassphrase;
 };
 
 #endif // PARAMETERS_H

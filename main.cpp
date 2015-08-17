@@ -9,6 +9,8 @@
 
 int main(int argc, char *argv[])
 {
+    QCA::Initializer qca;
+    Q_UNUSED(qca);
     QCoreApplication a(argc, argv);
 
     Parameters param(&a);

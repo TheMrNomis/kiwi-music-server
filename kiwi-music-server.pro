@@ -13,7 +13,8 @@ QT       -= gui
 
 TARGET = kiwi-music-server
 CONFIG   += console \
-            c++11
+            c++11 \
+            crypto
 
 CONFIG   -= app_bundle
 

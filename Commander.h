@@ -9,6 +9,7 @@
 #include <QTcpSocket>
 
 #include <QList>
+#include <QtCrypto>
 
 #include "BDD.h"
 #include "Parameters.h"
@@ -35,11 +36,16 @@ private slots:
 private:
   void _localScan();
 
+  void _createRSAKey();
+
   QTcpServer * m_tcpServer;
   QList<QTcpSocket *> m_clients;
 
   BDD *const m_bdd;
   Parameters *const m_params;
+
+  QCA::PrivateKey m_privateKey;
+  QCA::PublicKey  m_publicKey;
 };
 
 #endif // COMMANDER_H
